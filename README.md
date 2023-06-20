@@ -1,4 +1,4 @@
-# my_maps
+# My Maps
 
 A new Flutter project.
 
