@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_maps/views/map_view.dart';
 
-class HomeView extends StatefulWidget {
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
+import 'package:my_maps/components/map_list.dart';
+import 'package:my_maps/data/map_data.dart';
+import 'package:my_maps/views/add_view.dart';
 
-class _HomeViewState extends State<HomeView> {
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
@@ -16,26 +14,30 @@ class _HomeViewState extends State<HomeView> {
           automaticallyImplyLeading: false,
           title: Text('My Maps'),
           centerTitle: true,
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
+          backgroundColor: colorScheme.primaryContainer,
+          foregroundColor: colorScheme.onPrimaryContainer,
         ),
-        body: Container(
-            alignment: Alignment.center,
-            color: colorScheme.background,
-            child: ElevatedButton(
-              child: Text('Go to Map'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MapView()),
-                );
-              },
-            )),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            print('add button pressed!');
-          },
-        ));
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 10.0),
+          child: MyMapList(
+            myMaps: myMaps,
+          ),
+        ),
+        floatingActionButton: _AddFab());
+  }
+}
+
+class _AddFab extends StatelessWidget {
+  const _AddFab();
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AddView()));
+      },
+      child: Icon(Icons.add),
+    );
   }
 }
